@@ -1,5 +1,5 @@
-﻿//using BethanysPieShopHRM.Shared;
-using BethanysPieShopHRM.Shared;
+﻿using BethanysPieShopHRM.Shared;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +7,20 @@ using System.Threading.Tasks;
 
 namespace BethanysPieShopHRM.App.Pages
 {
-    public partial class EmployeeOverview
+    public partial class EmployeeDetails
     {
+        [Parameter]
+        public string EmployeeId { get; set; }
+        public Employee Employee { get; set; } = new Employee();
         protected override Task OnInitializedAsync()
         {
 
             InitializeCountries();
             InitializeJobCategories();
             InitializeEmployees();
+
+            Employee = Employees.FirstOrDefault(e => e.EmployeeId == int.Parse(EmployeeId));
+
 
             return base.OnInitializedAsync();
         }
