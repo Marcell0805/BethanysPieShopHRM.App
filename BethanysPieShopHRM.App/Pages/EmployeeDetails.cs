@@ -1,4 +1,5 @@
-﻿using BethanysPieShopHRM.Shared;
+﻿using BethanysPieShopHRM.App.Services;
+using BethanysPieShopHRM.Shared;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -11,23 +12,23 @@ namespace BethanysPieShopHRM.App.Pages
     {
         [Parameter]
         public string EmployeeId { get; set; }
+        public IEmployeeDataService EmployeeDataService { get; set; }
         public Employee Employee { get; set; } = new Employee();
-        protected override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
-
+            Employee = await EmployeeDataService.GetEmployeeDetails(int.Parse(EmployeeId));
+            /*
             InitializeCountries();
             InitializeJobCategories();
             InitializeEmployees();
-
             Employee = Employees.FirstOrDefault(e => e.EmployeeId == int.Parse(EmployeeId));
-
-
-            return base.OnInitializedAsync();
+            */
+            //return base.OnInitializedAsync();
         }
 
-        public IEnumerable<Employee> Employees { get; set; }
+       // public IEnumerable<Employee> Employees { get; set; }
 
-        private List<Country> Countries { get; set; }
+        /*private List<Country> Countries { get; set; }
 
         private List<JobCategory> JobCategories { get; set; }
 
@@ -107,6 +108,6 @@ namespace BethanysPieShopHRM.App.Pages
                 JoinedDate = new DateTime(2017, 12, 24)
             };
             Employees = new List<Employee> { e1, e2 };
-        }
+        }*/
     }
 }
